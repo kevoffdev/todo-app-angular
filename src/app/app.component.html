@@ -1,0 +1,51 @@
+<div class="flex flex-col">
+  <section
+    class="flex flex-col items-center w-full max-w-xl mx-auto mt-10 overflow-hidden text-black bg-white rounded-xl"
+  >
+    <div class="flex flex-col w-full max-w-sm gap-3 py-5">
+      <div class="flex flex-col items-center w-full gap-2">
+        <h1 class="text-3xl">To Do App</h1>
+        <div class="overflow-hidden rounded-md">
+          <input
+            class="p-2 bg-blue-200 outline-none"
+            type="text"
+            placeholder="some words"
+            [(ngModel)]="title"
+            id="value"
+            (keydown.enter)="title.length > 0 && addTodoList(title)"
+          />
+          <button
+            type="button"
+            class="p-2 bg-blue-400"
+            (click)="title.length > 0 && addTodoList(title)"
+          >
+            ↪
+          </button>
+        </div>
+      </div>
+      <div class="border border-gray-400 border-1"></div>
+      <ul class="flex gap-5 flex-col [&>li]:p-2 [&>li]:rounded-md">
+        @if(todoList.length > 0){ @for (todo of todoList; track
+        todoList[$index].id) {
+        <li class="flex items-center justify-between bg-blue-400">
+          <button
+            type="button"
+            class="w-5 h-5 ml-3 text-xs font-bold text-green-300 border border-gray-500"
+            (click)="onChangeTodoList(todo.id)"
+          >
+            {{ todo.checked ? "✓" : "" }}
+          </button>
+          <p class="text-xl" [ngClass]="{ 'opacity-30': todo.checked }">
+            {{ todo.value }}
+          </p>
+          <button class="mr-3" (click)="removeTodoList(todo.id)">✕</button>
+        </li>
+        } } @else{
+        <li class="flex items-center justify-center bg-blue-400">
+          <p class="opacity-35">Writing some</p>
+        </li>
+        }
+      </ul>
+    </div>
+  </section>
+</div>
